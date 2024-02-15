@@ -1,0 +1,287 @@
+
+# Advent of code 2022
+
+
+# Day 1, Calorie counting
+def calorie_count(filepath):
+    print("\nDay 1, Calorie counting")
+
+    elf_counter = 0
+    calorie_dict = list()
+
+    with open(filepath) as calories_input:
+        lines = calories_input.readlines()
+        temp_sum = 0
+        for i in range(len(lines)):
+            line = lines[i].rstrip()
+            if line == "":
+                elf_counter = elf_counter + 1
+                calorie_dict.append(temp_sum)
+                temp_sum = 0
+            else:
+                temp_sum = temp_sum + int(line)
+            if i == len(lines)-1:
+                calorie_dict.append(temp_sum)
+
+    print(calorie_dict)
+    max_calorie_list = []
+    for i in range(3):
+        max_elf = None
+        max_calorie = 0
+        for k in range(len(calorie_dict)):
+            if calorie_dict[k] > max_calorie:
+                max_calorie = calorie_dict[k]
+                max_elf = k + 1
+        max_calorie_list.append(max_calorie)
+        del calorie_dict[max_elf - 1]
+        print("Elf number " + str(max_elf) + " is carrying the most calories: " + str(max_calorie))
+    print(max_calorie_list)
+    print(sum(max_calorie_list))
+
+
+# Day 2, Rock paper scissors
+def rock_paper_scissors(filepath):
+    print("\nDay 2, Rock paper scissors")
+
+    # A rock, B paper, C scissors
+    # X rock, Y paper, Z scissors
+
+    score_dict = {
+        "X": 1,
+        "Y": 2,
+        "Z": 3
+    }
+
+    outcome_dict = {
+        "AX": 3,
+        "AY": 6,
+        "AZ": 0,
+        "BX": 0,
+        "BY": 3,
+        "BZ": 6,
+        "CX": 6,
+        "CY": 0,
+        "CZ": 3
+    }
+
+    counter_dict = {
+        "AX": "AZ",
+        "AY": "AX",
+        "AZ": "AY",
+        "BX": "BX",
+        "BY": "BY",
+        "BZ": "BZ",
+        "CX": "CY",
+        "CY": "CZ",
+        "CZ": "CX"
+    }
+
+    total_score = 0
+
+    with open(filepath) as input:
+        lines = input.readlines()
+        for line in lines:
+            line = (line.rstrip()).split(" ")
+            print(line)
+            # Final play
+            final_play = counter_dict[''.join(line)]
+            # Add symbol score
+            total_score = total_score + score_dict[list(final_play)[1]]
+            # Add round outcome
+            total_score = total_score + outcome_dict[final_play]
+    print(total_score)
+
+
+# Day 3, Rucksacks
+def rucksack(filepath):
+    print("\nDay 3, Rucksacks")
+
+    priorities = {
+        "a": 1,
+        "b": 2,
+        "c": 3,
+        "d": 4,
+        "e": 5,
+        "f": 6,
+        "g": 7,
+        "h": 8,
+        "i": 9,
+        "j": 10,
+        "k": 11,
+        "l": 12,
+        "m": 13,
+        "n": 14,
+        "o": 15,
+        "p": 16,
+        "q": 17,
+        "r": 18,
+        "s": 19,
+        "t": 20,
+        "u": 21,
+        "v": 22,
+        "w": 23,
+        "x": 24,
+        "y": 25,
+        "z": 26,
+        "A": 27,
+        "B": 28,
+        "C": 29,
+        "D": 30,
+        "E": 31,
+        "F": 32,
+        "G": 33,
+        "H": 34,
+        "I": 35,
+        "J": 36,
+        "K": 37,
+        "L": 38,
+        "M": 39,
+        "N": 40,
+        "O": 41,
+        "P": 42,
+        "Q": 43,
+        "R": 44,
+        "S": 45,
+        "T": 46,
+        "U": 47,
+        "V": 48,
+        "W": 49,
+        "X": 50,
+        "Y": 51,
+        "Z": 52,
+    }
+
+    priorities_sum = 0
+
+    with open(filepath) as input:
+        lines = input.readlines()
+        for line in lines:
+            line = list(line.rstrip())
+            line_length = len(line)
+            half_length = int(line_length/2)
+            first_compartment = [line[0:half_length]][0]
+            second_compartment = [line[half_length:line_length]][0]
+
+            same_item = None
+            for item1 in first_compartment:
+                for item2 in second_compartment:
+                    if item1 == item2:
+                        same_item = item1
+                        break
+                    if same_item != None:
+                        break
+            print(same_item)
+            priorities_sum = priorities_sum + priorities.get(same_item)
+
+    print(priorities_sum)
+
+
+# Day 3, Rucksacks part 2
+def rucksack2(filepath):
+    print("\nDay 3, Rucksacks 2")
+
+    priorities = {
+        "a": 1,
+        "b": 2,
+        "c": 3,
+        "d": 4,
+        "e": 5,
+        "f": 6,
+        "g": 7,
+        "h": 8,
+        "i": 9,
+        "j": 10,
+        "k": 11,
+        "l": 12,
+        "m": 13,
+        "n": 14,
+        "o": 15,
+        "p": 16,
+        "q": 17,
+        "r": 18,
+        "s": 19,
+        "t": 20,
+        "u": 21,
+        "v": 22,
+        "w": 23,
+        "x": 24,
+        "y": 25,
+        "z": 26,
+        "A": 27,
+        "B": 28,
+        "C": 29,
+        "D": 30,
+        "E": 31,
+        "F": 32,
+        "G": 33,
+        "H": 34,
+        "I": 35,
+        "J": 36,
+        "K": 37,
+        "L": 38,
+        "M": 39,
+        "N": 40,
+        "O": 41,
+        "P": 42,
+        "Q": 43,
+        "R": 44,
+        "S": 45,
+        "T": 46,
+        "U": 47,
+        "V": 48,
+        "W": 49,
+        "X": 50,
+        "Y": 51,
+        "Z": 52,
+    }
+
+    priorities_sum = 0
+
+    with open(filepath) as input:
+        lines = input.readlines()
+        i = 0
+        while i < len(lines):
+            line0 = list(lines[i].rstrip())
+            line1 = list(lines[i+1].rstrip())
+            line2 = list(lines[i+2].rstrip())
+
+            same_item = None
+            for item0 in line0:
+                for item1 in line1:
+                    if item0 == item1:
+                        for item2 in line2:
+                            if item1 == item2:
+                                same_item = item2
+                                break
+                        if same_item != None:
+                            break
+
+            print(same_item)
+            priorities_sum = priorities_sum + priorities.get(same_item)
+            i = i + 3
+
+
+    print(priorities_sum)
+
+
+# Day 4, Clean up
+def cleanup(filepath):
+    print("\nDay 4, Clean up")
+    with open(filepath) as input:
+        sumOfPairs = 0
+        lines = input.readlines()
+        for line in lines:
+            firstElf = list(line[0:3:2])
+            secondElf = list(line[4:7:2])
+            range1 = range(int(firstElf[0]),int(firstElf[1]))
+            range2 = range(int(secondElf[0]),int(secondElf[1]))
+            for i in range(len(range1)):
+                if i == len(range1) & range1[i] in range2:
+                    sumOfPairs += 1
+                if range1[i] in range2:
+                    continue
+                else:
+                    break
+        print(sumOfPairs)
+
+cleanup("day4_input.txt")
