@@ -1,0 +1,8 @@
+[project]
+name = "mipy"
+version = "0.1"
+authors = [
+    {name = "Vaclav", email = "fake.email@gmail.com"}
+]
+description = "A sample package"
+
